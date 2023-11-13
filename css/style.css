@@ -1,0 +1,82 @@
+
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0 auto;
+    max-width: 1400px;
+}
+
+.top-content {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.top-content input {
+    width: 400px;
+    height: 40px;
+}
+
+.mid-content {
+    padding-top: 50px;
+}
+
+.filters-container {
+    display: flex;
+}
+
+
+/*MID CONTENT */
+
+
+.mid-content {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.mid-content .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/*Filtres */
+
+.dropdown {
+    padding-right: 40px;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.tag-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+/*Cards */
+
+
+.grid-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.recipe-card img {
+    object-fit: cover;
+    height: 300px;
+    width: 100%;
+}
+
+.ingredients-container {
+    display: flex;
+    flex-direction: column;
+}
