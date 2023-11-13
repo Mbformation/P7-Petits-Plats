@@ -1,3 +1,5 @@
+import Tag from "../Tag.js";
+
 class FilterModel {
   constructor() {
     this.compEl = document.createElement("div");
@@ -19,10 +21,7 @@ class FilterModel {
     const container = document.createElement("div");
     container.classList.add("tag-container");
     data.forEach((item) => {
-      const tag = document.createElement("div");
-      tag.textContent = `${item}`;
-      tag.classList.add("tag");
-      container.appendChild(tag);
+      container.appendChild(new Tag(item).render());
     });
 
     return container;
