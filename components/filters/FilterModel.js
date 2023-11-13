@@ -15,9 +15,15 @@ class FilterModel {
     return this.compEl;
   }
 
-  renderTags() {
+  renderTags(data) {
     const container = document.createElement("div");
     container.classList.add("tag-container");
+    data.forEach((item) => {
+      const tag = document.createElement("div");
+      tag.textContent = `${item}`;
+      tag.classList.add("tag");
+      container.appendChild(tag);
+    });
 
     return container;
   }

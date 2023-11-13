@@ -1,13 +1,17 @@
 import FilterModel from "./FilterModel.js";
 
 class FilterIngredients extends FilterModel {
-  constructor() {
+  constructor(parent) {
     super();
-    this.getTags();
+    this.parent = parent;
+    this.renderTags();
   }
 
-  getTags() {
-    console.log(this.compEl);
+  renderTags() {
+    const ingredients = this.parent.allRecipes.flatMap((recipe) =>
+      recipe.ingredients.map((ingredient) => ingredient.ingredient)
+    );
+    return super.renderTags(ingredients);
     // dum method that is called by openBtn and that itself calls a parent method that:
     // - gets selected tags and selected recipes
     // - and calculate available ingredient tags
