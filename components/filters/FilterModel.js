@@ -1,3 +1,4 @@
+import FilterSearch from "./FilterSearch.js";
 import Tag from "../Tag.js";
 
 class FilterModel {
@@ -8,6 +9,8 @@ class FilterModel {
     this.dropBtn.classList.add("dropdown-toggle");
     this.selectedTags = document.createElement("div");
     this.selectedTags.classList.add("selected-tags");
+    this.menu = document.createElement("div");
+    this.menu.classList.add("dropdown-menu");
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
   }
@@ -20,6 +23,9 @@ class FilterModel {
   }
 
   renderTags(tagList) {
+    while (this.tagOptions.firstChild) {
+      this.tagOptions.removeChild(this.tagOptions.firstChild);
+    }
     tagList.forEach((name) => {
       this.tagOptions.appendChild(new Tag(name).render());
     });
@@ -40,16 +46,10 @@ class FilterModel {
   }
 
   renderMenu(tagList) {
-    const menu = document.createElement("div");
-    menu.classList.add("dropdown-menu");
-    const search = document.createElement("input");
-    search.setAttribute("type", "search");
-    search.setAttribute("class", "filter-search");
-    search.setAttribute("aria-label", "Search");
-    menu.appendChild(search);
-    menu.appendChild(this.selectedTags);
-    menu.appendChild(this.renderTags(tagList, this.parent.currentRecipes));
-    this.compEl.appendChild(menu);
+    this.menu.appendChild(new FilterSearch(this, tagList).render());
+    this.menu.appendChild(this.selectedTags);
+    this.menu.appendChild(this.renderTags(tagList, this.parent.currentRecipes));
+    this.compEl.appendChild(this.menu);
   }
 
   closeMenu() {
