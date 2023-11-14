@@ -15,7 +15,6 @@ class FilterSearch {
 
   updateList(newlist) {
     this.list = newlist;
-    console.log(this.list);
   }
 
   listenForInput() {

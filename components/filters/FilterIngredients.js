@@ -4,8 +4,9 @@ class FilterIngredients extends FilterModel {
   constructor(parent) {
     super();
     this.parent = parent;
-    super.listenForToggle(this.listIngredients(this.parent.currentRecipes));
+    super.listenForToggle(this.listIngredients);
   }
+
   listIngredients(recipes) {
     const ingredients = recipes.flatMap((recipe) =>
       recipe.ingredients.map((ingredient) => ingredient.ingredient)

@@ -14,6 +14,7 @@ class FilterModel {
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
     this.filterSearch = new FilterSearch(this);
+    this.availableTags = null;
   }
 
   render() {
@@ -73,11 +74,18 @@ class FilterModel {
     }
   }
 
-  listenForToggle(availableTags) {
+  getRecipes() {
+    return this.parent.currentRecipes;
+  }
+
+  listenForToggle(getTagsList) {
     let isOpen = false;
     this.dropBtn.addEventListener("click", () => {
       if (isOpen === false) {
-        this.renderMenu(availableTags);
+        const getTags = getTagsList;
+
+        const tagList = getTags(this.getRecipes());
+        this.renderMenu(tagList);
       } else {
         this.closeMenu();
       }
