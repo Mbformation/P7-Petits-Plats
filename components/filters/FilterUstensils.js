@@ -4,13 +4,18 @@ class FilterUstensils extends FilterModel {
   constructor(parent) {
     super();
     this.parent = parent;
-    this.renderTags();
+    super.listenForToggle(this.listUstensils());
   }
-  renderTags() {
-    const ustensils = this.parent.allRecipes.flatMap(
+
+  listUstensils() {
+    const ustensils = this.parent.currentRecipes.flatMap(
       (recipe) => recipe.ustensils
     );
-    return super.renderTags(ustensils);
+    const uniqueUstensils = Array.from(new Set(ustensils))
+      .map((ustensil) => ustensil.charAt(0).toUpperCase() + ustensil.slice(1))
+      .sort();
+
+    return uniqueUstensils;
   }
 }
 

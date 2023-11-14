@@ -1,15 +1,17 @@
 class Tag {
   constructor(item) {
     this.item = item;
+    this.tagEl = document.createElement("li");
+    this.tagEl.classList.add("tag");
   }
   render() {
-    const tagEl = document.createElement("div");
-    tagEl.textContent = `${this.item}`;
-    tagEl.classList.add("tag");
-    return tagEl;
+    this.tagEl.textContent = `${this.item}`;
+    return this.tagEl;
   }
 
-  appendTotal() {}
+  appendTotal() {
+    //this.tagEl blablabla
+  }
 }
 
 export default Tag;

@@ -4,13 +4,20 @@ class FilterAppliance extends FilterModel {
   constructor(parent) {
     super();
     this.parent = parent;
-    this.renderTags();
+    super.listenForToggle(this.listAppliances());
   }
-  renderTags() {
-    const appliances = this.parent.allRecipes.flatMap(
+
+  listAppliances() {
+    const appliances = this.parent.currentRecipes.flatMap(
       (recipe) => recipe.appliance
     );
-    return super.renderTags(appliances);
+    const uniqueAppliances = Array.from(new Set(appliances))
+      .map(
+        (appliance) => appliance.charAt(0).toUpperCase() + appliance.slice(1)
+      )
+      .sort();
+
+    return uniqueAppliances;
   }
 }
 

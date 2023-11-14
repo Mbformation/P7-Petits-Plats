@@ -15,19 +15,12 @@ body {
     height: 40px;
 }
 
-.mid-content {
-    padding-top: 50px;
-}
-
-.filters-container {
-    display: flex;
-}
-
 
 /*MID CONTENT */
 
 
 .mid-content {
+    padding-top: 50px;
     padding-left: 50px;
     padding-right: 50px;
 }
@@ -41,6 +34,10 @@ body {
 
 /*Filtres */
 
+.filters-container {
+    display: flex;
+}
+
 .dropdown {
     padding-right: 40px;
 }
@@ -51,11 +48,18 @@ body {
     text-align: left;
 }
 
-.tag-container {
+.filter-tags {
     display: flex;
     flex-direction: column;
 }
 
+.filter-tags .tag {
+    cursor: pointer;
+}
+
+.filter-tags .tag:hover {
+    background-color: red;
+}
 
 
 

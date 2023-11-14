@@ -6,8 +6,10 @@ class FilterModel {
     this.compEl.classList.add("dropdown");
     this.dropBtn = document.createElement("button");
     this.dropBtn.classList.add("dropdown-toggle");
-    this.tagList = {};
-    this.listenDropBtn();
+    this.selectedTags = document.createElement("div");
+    this.selectedTags.classList.add("selected-tags");
+    this.tagOptions = document.createElement("ul");
+    this.tagOptions.classList.add("filter-tags");
   }
   render() {
     this.dropBtn.innerHTML += `
@@ -17,17 +19,27 @@ class FilterModel {
     return this.compEl;
   }
 
-  renderTags(data) {
-    const container = document.createElement("div");
-    container.classList.add("tag-container");
-    data.forEach((item) => {
-      container.appendChild(new Tag(item).render());
+  renderTags(tagList) {
+    tagList.forEach((name) => {
+      this.tagOptions.appendChild(new Tag(name).render());
     });
-
-    return container;
+    this.tagOptions.addEventListener("click", (event) => {
+      if (event.target.classList.contains("tag")) {
+        const ingredient = event.target.textContent;
+        const filteredRecipes = this.parent.currentRecipes.filter((recipe) =>
+          recipe.ingredients.some(
+            (ingredientObj) => ingredientObj.ingredient === ingredient
+          )
+        );
+        this.parent.currentRecipes = filteredRecipes;
+        console.log(this.parent.currentRecipes);
+        this.parent.append();
+      }
+    });
+    return this.tagOptions;
   }
 
-  renderMenu() {
+  renderMenu(tagList) {
     const menu = document.createElement("div");
     menu.classList.add("dropdown-menu");
     const search = document.createElement("input");
@@ -35,7 +47,8 @@ class FilterModel {
     search.setAttribute("class", "filter-search");
     search.setAttribute("aria-label", "Search");
     menu.appendChild(search);
-    menu.appendChild(this.renderTags());
+    menu.appendChild(this.selectedTags);
+    menu.appendChild(this.renderTags(tagList, this.parent.currentRecipes));
     this.compEl.appendChild(menu);
   }
 
@@ -49,14 +62,11 @@ class FilterModel {
     }
   }
 
-  listenForChoice() {}
-
-  listenDropBtn() {
+  listenForToggle(tagList) {
     let isOpen = false;
     this.dropBtn.addEventListener("click", () => {
       if (isOpen === false) {
-        this.renderMenu();
-        this.listenForChoice();
+        this.renderMenu(tagList);
       } else {
         this.closeMenu();
       }
@@ -69,12 +79,3 @@ export default FilterModel;
 
 // aura une méthode append et elle doit recevoir en argument une fonction
 // cette fonction sera le filtrage spécifique à chaque filtre
-/*
-    <ul class="ingredient-list">
-      <li>Ingredient 1</li>
-      <li>Ingredient 2</li>
-      <li>Ingredient 3</li>
-      <!-- More list items -->
-    </ul>
-  </div>
-  }*/

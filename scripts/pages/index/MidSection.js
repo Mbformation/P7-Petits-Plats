@@ -7,8 +7,7 @@ import GridCards from "../../../components/GridCards.js";
 class MidSection {
   constructor(recipesState) {
     this.recipesState = recipesState;
-    this.allRecipes = this.recipesState.recipes;
-    this.currentRecipes = null;
+    this.currentRecipes = this.recipesState.recipes;
     this.compEl = document.createElement("section");
     this.compEl.classList.add("mid-content");
     this.container = document.createElement("div");
@@ -18,25 +17,31 @@ class MidSection {
     this.filterIngredients = new FilterIngredients(this).render();
     this.filterAppliance = new FilterAppliance(this).render();
     this.filterUstensils = new FilterUstensils(this).render();
-    this.totalRecipes = new TotalRecipes().render(this.allRecipes.length);
-    this.gridCards = new GridCards(this.currentRecipes).render(this.allRecipes);
+    this.totalRecipes = new TotalRecipes();
+    this.gridCards = new GridCards();
   }
   render() {
     this.filters.appendChild(this.filterIngredients);
     this.filters.appendChild(this.filterAppliance);
     this.filters.appendChild(this.filterUstensils);
     this.container.appendChild(this.filters);
-    this.container.appendChild(this.totalRecipes);
+    this.container.appendChild(
+      this.totalRecipes.render(this.currentRecipes.length)
+    );
     this.compEl.appendChild(this.container);
-    this.compEl.appendChild(this.gridCards);
+    this.compEl.appendChild(this.gridCards.render(this.currentRecipes));
     return this.compEl;
   }
 
   append() {
-    //this.compEl.appendChild(this.filterIngredients.append());
-    //this.compEl.appendChild(this.filterAppliance.append());
-    //this.compEl.appendChild(this.filterUstensils.append());
-    //this.compEl.appendChild(this.totalRecipes.append(this.currentRecipes.length));
+    //this.compEl.appendChild(this.filterIngredients.update());
+    //this.compEl.appendChild(this.filterAppliance.update());
+    //this.compEl.appendChild(this.filterUstensils.update());
+
+    this.container.appendChild(
+      this.totalRecipes.render(this.currentRecipes.length)
+    );
+    this.compEl.appendChild(this.gridCards.render(this.currentRecipes));
   }
 }
 
