@@ -8,10 +8,6 @@ class Tag {
     this.tagEl.textContent = `${this.item}`;
     return this.tagEl;
   }
-
-  appendTotal() {
-    //this.tagEl blablabla
-  }
 }
 
 export default Tag;

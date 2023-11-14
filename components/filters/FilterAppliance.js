@@ -4,7 +4,7 @@ class FilterAppliance extends FilterModel {
   constructor(parent) {
     super();
     this.parent = parent;
-    super.listenForToggle(this.listAppliances());
+    super.listenForToggle(this.listAppliances(this.parent.currentRecipes));
   }
 
   listAppliances() {
@@ -18,6 +18,9 @@ class FilterAppliance extends FilterModel {
       .sort();
 
     return uniqueAppliances;
+  }
+  update(recipes) {
+    super.updateMenu(this.listAppliances(recipes));
   }
 }
 

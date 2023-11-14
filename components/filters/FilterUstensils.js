@@ -4,7 +4,7 @@ class FilterUstensils extends FilterModel {
   constructor(parent) {
     super();
     this.parent = parent;
-    super.listenForToggle(this.listUstensils());
+    super.listenForToggle(this.listUstensils(this.parent.currentRecipes));
   }
 
   listUstensils() {
@@ -16,6 +16,9 @@ class FilterUstensils extends FilterModel {
       .sort();
 
     return uniqueUstensils;
+  }
+  update(recipes) {
+    super.updateMenu(this.listUstensils(recipes));
   }
 }
 

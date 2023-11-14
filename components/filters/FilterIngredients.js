@@ -20,7 +20,7 @@ class FilterIngredients extends FilterModel {
     return uniqueIngredients;
   }
   update(recipes) {
-    super.renderTags(this.listIngredients(recipes));
+    super.updateMenu(this.listIngredients(recipes));
   }
 }
 

@@ -14,16 +14,16 @@ class MidSection {
     this.container.classList.add("container");
     this.filters = document.createElement("div");
     this.filters.classList.add("filters-container");
-    this.filterIngredients = new FilterIngredients(this).render();
-    this.filterAppliance = new FilterAppliance(this).render();
-    this.filterUstensils = new FilterUstensils(this).render();
+    this.filterIngredients = new FilterIngredients(this);
+    this.filterAppliance = new FilterAppliance(this);
+    this.filterUstensils = new FilterUstensils(this);
     this.totalRecipes = new TotalRecipes();
     this.gridCards = new GridCards();
   }
   render() {
-    this.filters.appendChild(this.filterIngredients);
-    this.filters.appendChild(this.filterAppliance);
-    this.filters.appendChild(this.filterUstensils);
+    this.filters.appendChild(this.filterIngredients.render());
+    this.filters.appendChild(this.filterAppliance.render());
+    this.filters.appendChild(this.filterUstensils.render());
     this.container.appendChild(this.filters);
     this.container.appendChild(
       this.totalRecipes.render(this.currentRecipes.length)
@@ -34,9 +34,9 @@ class MidSection {
   }
 
   append() {
-    //this.compEl.appendChild(this.filterIngredients.update());
-    //this.compEl.appendChild(this.filterAppliance.update());
-    //this.compEl.appendChild(this.filterUstensils.update());
+    this.filterIngredients.update(this.currentRecipes);
+    this.filterAppliance.update(this.currentRecipes);
+    this.filterUstensils.update(this.currentRecipes);
 
     this.container.appendChild(
       this.totalRecipes.render(this.currentRecipes.length)

@@ -13,6 +13,11 @@ class FilterSearch {
     return this.compEl;
   }
 
+  updateList(newlist) {
+    this.list = newlist;
+    console.log(this.list);
+  }
+
   listenForInput() {
     this.compEl.addEventListener("input", (event) => {
       const input = event.target.value

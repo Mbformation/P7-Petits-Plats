@@ -13,7 +13,9 @@ class FilterModel {
     this.menu.classList.add("dropdown-menu");
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
+    this.filterSearch = new FilterSearch(this);
   }
+
   render() {
     this.dropBtn.innerHTML += `
       <span class="dropdown-title">Title</span>
@@ -22,11 +24,11 @@ class FilterModel {
     return this.compEl;
   }
 
-  renderTags(tagList) {
+  renderTags(availableTags) {
     while (this.tagOptions.firstChild) {
       this.tagOptions.removeChild(this.tagOptions.firstChild);
     }
-    tagList.forEach((name) => {
+    availableTags.forEach((name) => {
       this.tagOptions.appendChild(new Tag(name).render());
     });
     this.tagOptions.addEventListener("click", (event) => {
@@ -38,18 +40,27 @@ class FilterModel {
           )
         );
         this.parent.currentRecipes = filteredRecipes;
-        console.log(this.parent.currentRecipes);
         this.parent.append();
       }
     });
     return this.tagOptions;
   }
 
-  renderMenu(tagList) {
-    this.menu.appendChild(new FilterSearch(this, tagList).render());
+  renderMenu(availableTags) {
+    this.menu.appendChild(this.filterSearch.render());
     this.menu.appendChild(this.selectedTags);
-    this.menu.appendChild(this.renderTags(tagList, this.parent.currentRecipes));
+    this.menu.appendChild(
+      this.renderTags(availableTags, this.parent.currentRecipes)
+    );
     this.compEl.appendChild(this.menu);
+  }
+
+  updateMenu(availableTags) {
+    this.filterSearch.updateList(availableTags);
+    // updater les selectedTags
+    this.menu.appendChild(
+      this.renderTags(availableTags, this.parent.currentRecipes)
+    );
   }
 
   closeMenu() {
@@ -62,11 +73,11 @@ class FilterModel {
     }
   }
 
-  listenForToggle(tagList) {
+  listenForToggle(availableTags) {
     let isOpen = false;
     this.dropBtn.addEventListener("click", () => {
       if (isOpen === false) {
-        this.renderMenu(tagList);
+        this.renderMenu(availableTags);
       } else {
         this.closeMenu();
       }
@@ -76,6 +87,3 @@ class FilterModel {
 }
 
 export default FilterModel;
-
-// aura une méthode append et elle doit recevoir en argument une fonction
-// cette fonction sera le filtrage spécifique à chaque filtre
