@@ -5,18 +5,34 @@ import TotalRecipes from "../../../components/TotalRecipes.js";
 import GridCards from "../../../components/GridCards.js";
 
 class MidSection {
-  constructor(recipesState) {
-    this.recipesState = recipesState;
-    this.currentRecipes = this.recipesState.recipes;
+  constructor(recipes, filterCriteria, updatePage) {
+    this.filteredRecipes = recipes;
+    this.filterCriteria = filterCriteria;
+    this.updatePage = updatePage;
     this.compEl = document.createElement("section");
     this.compEl.classList.add("mid-content");
     this.container = document.createElement("div");
     this.container.classList.add("container");
     this.filters = document.createElement("div");
     this.filters.classList.add("filters-container");
-    this.filterIngredients = new FilterIngredients(this);
-    this.filterAppliance = new FilterAppliance(this);
-    this.filterUstensils = new FilterUstensils(this);
+    this.filterIngredients = new FilterIngredients(
+      this.filteredRecipes,
+      this.filterCriteria,
+      this.updatePage,
+      "ingredients"
+    );
+    this.filterAppliance = new FilterAppliance(
+      this.filteredRecipes,
+      this.filterCriteria,
+      this.updatePage,
+      "appliance"
+    );
+    this.filterUstensils = new FilterUstensils(
+      this.filteredRecipes,
+      this.filterCriteria,
+      this.updatePage,
+      "ustensils"
+    );
     this.totalRecipes = new TotalRecipes();
     this.gridCards = new GridCards();
   }
@@ -26,22 +42,19 @@ class MidSection {
     this.filters.appendChild(this.filterUstensils.render());
     this.container.appendChild(this.filters);
     this.container.appendChild(
-      this.totalRecipes.render(this.currentRecipes.length)
+      this.totalRecipes.render(this.filteredRecipes.length)
     );
     this.compEl.appendChild(this.container);
-    this.compEl.appendChild(this.gridCards.render(this.currentRecipes));
+    this.compEl.appendChild(this.gridCards.render(this.filteredRecipes));
     return this.compEl;
   }
 
-  append() {
-    this.filterIngredients.update(this.currentRecipes);
-    this.filterAppliance.update(this.currentRecipes);
-    this.filterUstensils.update(this.currentRecipes);
-
-    this.container.appendChild(
-      this.totalRecipes.render(this.currentRecipes.length)
-    );
-    this.compEl.appendChild(this.gridCards.render(this.currentRecipes));
+  update(updatedRecipes) {
+    this.filterIngredients.update(updatedRecipes);
+    this.filterAppliance.update(updatedRecipes);
+    this.filterUstensils.update(updatedRecipes);
+    this.container.appendChild(this.totalRecipes.render(updatedRecipes.length));
+    this.compEl.appendChild(this.gridCards.render(updatedRecipes));
   }
 }
 

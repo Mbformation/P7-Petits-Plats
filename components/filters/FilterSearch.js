@@ -15,22 +15,27 @@ class FilterSearch {
 
   updateList(newlist) {
     this.list = newlist;
+    this.filterList(this.compEl.value);
+  }
+
+  filterList(input) {
+    input
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+    const filteredList = this.list.filter((item) =>
+      item
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .includes(input)
+    );
+    this.parent.renderTags(filteredList);
   }
 
   listenForInput() {
     this.compEl.addEventListener("input", (event) => {
-      const input = event.target.value
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      const filteredList = this.list.filter((item) =>
-        item
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .includes(input)
-      );
-      this.parent.renderTags(filteredList);
+      this.filterList(event.target.value);
     });
   }
 }

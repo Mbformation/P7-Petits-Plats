@@ -1,9 +1,12 @@
 import FilterModel from "./FilterModel.js";
 
 class FilterIngredients extends FilterModel {
-  constructor(parent) {
+  constructor(recipes, filterCriteria, updatePage, tagId) {
     super();
-    this.parent = parent;
+    this.filteredRecipes = recipes;
+    this.filterCriteria = filterCriteria;
+    this.updatePage = updatePage;
+    this.tagId = tagId;
     super.listenForToggle(this.listIngredients);
   }
 
@@ -21,14 +24,8 @@ class FilterIngredients extends FilterModel {
     return uniqueIngredients;
   }
   update(recipes) {
-    super.updateMenu(this.listIngredients(recipes));
+    super.updateMenu(this.listIngredients, recipes);
   }
 }
 
 export default FilterIngredients;
-
-// dum method that is called by openBtn and that itself calls a parent method that:
-// - gets selected tags and selected recipes
-// - and calculate available ingredient tags
-// - returns the available tags to this method
-// this method then uses this list of available tags and re-renders them

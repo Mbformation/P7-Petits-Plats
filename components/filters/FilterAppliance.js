@@ -1,9 +1,12 @@
 import FilterModel from "./FilterModel.js";
 
 class FilterAppliance extends FilterModel {
-  constructor(parent) {
+  constructor(recipes, filterCriteria, updatePage, tagId) {
     super();
-    this.parent = parent;
+    this.filteredRecipes = recipes;
+    this.filterCriteria = filterCriteria;
+    this.updatePage = updatePage;
+    this.tagId = tagId;
     super.listenForToggle(this.listAppliances);
   }
 
@@ -18,7 +21,7 @@ class FilterAppliance extends FilterModel {
     return uniqueAppliances;
   }
   update(recipes) {
-    super.updateMenu(this.listAppliances(recipes));
+    super.updateMenu(this.listAppliances, recipes);
   }
 }
 
