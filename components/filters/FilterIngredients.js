@@ -11,17 +11,18 @@ class FilterIngredients extends FilterModel {
   }
 
   listIngredients(recipes) {
-    const ingredients = recipes.flatMap((recipe) =>
-      recipe.ingredients.map((ingredient) => ingredient.ingredient)
-    );
-    const uniqueIngredients = ingredients
-      .filter((ingredient, index) => ingredients.indexOf(ingredient) === index)
+    const ingredients = recipes
+      .flatMap((recipe) =>
+        recipe.ingredients.map((ingredient) =>
+          ingredient.ingredient.toLowerCase()
+        )
+      )
+      .filter((ingredient, index, array) => array.indexOf(ingredient) === index)
       .map(
         (ingredient) => ingredient.charAt(0).toUpperCase() + ingredient.slice(1)
       )
       .sort();
-
-    return uniqueIngredients;
+    return ingredients;
   }
   update(recipes) {
     super.updateMenu(this.listIngredients, recipes);

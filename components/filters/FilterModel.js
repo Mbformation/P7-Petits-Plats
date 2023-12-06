@@ -1,5 +1,6 @@
 import FilterSearch from "./FilterSearch.js";
 import Tag from "../Tag.js";
+import SelectedTag from "../SelectedTag.js";
 
 class FilterModel {
   constructor() {
@@ -9,14 +10,18 @@ class FilterModel {
     this.dropBtn.classList.add("dropdown-toggle");
     this.menu = document.createElement("div");
     this.menu.classList.add("dropdown-menu");
-    this.selectedTagsContainer = document.createElement("ul");
+    this.selectedTagsContainer = document.createElement("div");
     this.selectedTagsContainer.classList.add("selected-tags");
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
     this.tagOptions.addEventListener("click", (event) => {
       if (event.target.classList.contains("tag")) {
         this.selectedTagsContainer.appendChild(
-          new Tag(event.target.textContent).render()
+          new SelectedTag(
+            event.target.textContent,
+            this.filterCriteria,
+            this.updatePage
+          ).render()
         );
         this.filterCriteria.push({
           value: event.target.textContent,
@@ -25,8 +30,8 @@ class FilterModel {
         this.updatePage();
       }
     });
-    this.filterSearch = new FilterSearch(this);
     this.selectedTags = [];
+    this.filterSearch = new FilterSearch(this, this.selectedTags);
   }
 
   render() {
@@ -42,12 +47,13 @@ class FilterModel {
       this.tagOptions.removeChild(this.tagOptions.firstChild);
     }
     availableTags.forEach((name) => {
-      this.tagOptions.appendChild(new Tag(name, this.tagId).render());
+      this.tagOptions.appendChild(new Tag(name).render());
     });
     return this.tagOptions;
   }
 
   renderMenu(availableTags) {
+    this.filterSearch.updateList(availableTags);
     this.menu.appendChild(this.filterSearch.render());
     this.menu.appendChild(this.selectedTagsContainer);
     this.menu.appendChild(this.renderTags(availableTags));
@@ -57,10 +63,10 @@ class FilterModel {
   updateMenu(getTagsList, recipes) {
     this.filteredRecipes = recipes;
     const tagList = getTagsList(this.filteredRecipes);
-    const selectedTags = Array.from(this.selectedTagsContainer.children).map(
+    this.selectedTags = Array.from(this.selectedTagsContainer.children).map(
       (child) => child.textContent
     );
-    const tagsLeft = tagList.filter((tag) => !selectedTags.includes(tag));
+    const tagsLeft = tagList.filter((tag) => !this.selectedTags.includes(tag));
     this.filterSearch.updateList(tagsLeft);
   }
 

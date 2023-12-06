@@ -29,7 +29,7 @@ class SearchBar {
           (obj) => obj.type === "search"
         );
         searchObj.value = event.target.value;
-        this.update();
+        this.update(this.filterCriteria);
       }
     });
   }

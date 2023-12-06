@@ -11,11 +11,12 @@ class FilterUstensils extends FilterModel {
   }
 
   listUstensils(recipes) {
-    const ustensils = recipes.flatMap((recipe) => recipe.ustensils);
+    const ustensils = recipes
+      .flatMap((recipe) => recipe.ustensils)
+      .map((ustensil) => ustensil.toLowerCase());
     const uniqueUstensils = Array.from(new Set(ustensils))
       .map((ustensil) => ustensil.charAt(0).toUpperCase() + ustensil.slice(1))
       .sort();
-
     return uniqueUstensils;
   }
   update(recipes) {

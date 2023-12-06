@@ -30,7 +30,6 @@ class Page {
   }
 
   filterRecipes() {
-    console.log(this.filterCriteria, this.filteredRecipes);
     this.filteredRecipes = this.recipes.filter((recipe) => {
       return this.filterCriteria.every((criteria) => {
         const { value, type } = criteria;
@@ -38,7 +37,11 @@ class Page {
           case "search":
             return this.searchFilter(recipe, value);
           case "ingredients":
-            return this.propertyFilter(recipe.ingredients, "ingredient", value);
+            return this.propertyFilter(
+              recipe.ingredients,
+              "ingredients",
+              value
+            );
           case "appliance":
             return this.propertyFilter(recipe, "appliance", value);
           case "ustensils":
@@ -48,7 +51,6 @@ class Page {
         }
       });
     });
-    console.log(this.filterCriteria, this.filteredRecipes);
     return this.filteredRecipes;
   }
 
@@ -65,10 +67,43 @@ class Page {
   }
 
   propertyFilter(item, property, value) {
-    if (property === "ustensils") {
-      return item[property].includes(value);
-    } else {
-      return item[property] === value;
+    switch (property) {
+      case "ingredients":
+        const ing = item.map((i) =>
+          i.ingredient
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+        );
+        const normalizedIngredient = value
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        return ing.some((i) => i === normalizedIngredient);
+      case "appliance":
+        const appliance = item[property]
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        const normalizedValue = value
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        return appliance === normalizedValue;
+      case "ustensils":
+        const ustensils = item[property].map((ustensil) =>
+          ustensil
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+        );
+        const normalizedUstensil = value
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        return ustensils.some((ustensil) => ustensil === normalizedUstensil);
+      default:
+        return false;
     }
   }
 }

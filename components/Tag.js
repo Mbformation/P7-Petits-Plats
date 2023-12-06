@@ -1,12 +1,12 @@
 class Tag {
-  constructor(item) {
-    this.item = item;
-    this.tagEl = document.createElement("li");
-    this.tagEl.classList.add("tag");
+  constructor(name) {
+    this.name = name;
+    this.compEl = document.createElement("li");
+    this.compEl.classList.add("tag");
   }
   render() {
-    this.tagEl.textContent = `${this.item}`;
-    return this.tagEl;
+    this.compEl.textContent = `${this.name}`;
+    return this.compEl;
   }
 }
 
