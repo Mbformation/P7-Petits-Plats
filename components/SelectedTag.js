@@ -4,7 +4,7 @@ class SelectedTag {
     this.filterCriteria = filterCriteria;
     this.updatePage = updatePage;
     this.compEl = document.createElement("div");
-    this.compEl.classList.add("selected-tag");
+    this.compEl.classList.add("selected-tag", `${this.name}`);
     this.title = document.createElement("span");
     this.title.textContent = `${this.name}`;
     this.removeBtn = document.createElement("button");
@@ -20,7 +20,6 @@ class SelectedTag {
 
   listenForRemove() {
     this.removeBtn.addEventListener("click", (event) => {
-      console.log(this.title.textContent);
       const indexToRemove = this.filterCriteria.findIndex(
         (obj) => obj.value === this.title.textContent
       );
@@ -28,7 +27,13 @@ class SelectedTag {
       if (indexToRemove !== -1) {
         this.filterCriteria.splice(indexToRemove, 1);
       }
-      this.compEl.remove();
+      const compEls = document.querySelectorAll(`.${this.name}`);
+      console.log(compEls);
+
+      for (const el of compEls) {
+        el.parentNode.removeChild(el);
+      }
+
       this.updatePage();
     });
   }

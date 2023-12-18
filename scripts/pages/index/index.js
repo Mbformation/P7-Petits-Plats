@@ -1,6 +1,7 @@
 import TopSection from "./TopSection.js";
 import MidSection from "./MidSection.js";
 import GetRecipes from "../../../utils/GetRecipes.js";
+import { norm } from "../../../utils/normalise.js";
 
 class Page {
   constructor() {
@@ -9,7 +10,8 @@ class Page {
     this.filteredRecipes = [];
     this.topSection = new TopSection(
       this.filterCriteria,
-      this.updatePage.bind(this)
+      this.updatePage.bind(this),
+      this.addTag.bind(this)
     );
     this.midSection = new MidSection(
       this.filterRecipes(),
@@ -69,42 +71,23 @@ class Page {
   propertyFilter(item, property, value) {
     switch (property) {
       case "ingredients":
-        const ing = item.map((i) =>
-          i.ingredient
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-        );
-        const normalizedIngredient = value
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
+        const ing = item.map((i) => norm(i.ingredient));
+        const normalizedIngredient = norm(value);
         return ing.some((i) => i === normalizedIngredient);
       case "appliance":
-        const appliance = item[property]
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const normalizedValue = value
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
+        const appliance = norm(item[property]);
+        const normalizedValue = norm(value);
         return appliance === normalizedValue;
       case "ustensils":
-        const ustensils = item[property].map((ustensil) =>
-          ustensil
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-        );
-        const normalizedUstensil = value
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
+        const ustensils = item[property].map((ustensil) => norm(ustensil));
+        const normalizedUstensil = norm(value);
         return ustensils.some((ustensil) => ustensil === normalizedUstensil);
       default:
         return false;
     }
+  }
+  addTag(tagName) {
+    this.midSection.addTag(tagName);
   }
 }
 

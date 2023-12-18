@@ -23,6 +23,7 @@ class FilterModel {
             this.updatePage
           ).render()
         );
+        this.addTag(event.target.textContent);
         this.filterCriteria.push({
           value: event.target.textContent,
           type: this.tagId,

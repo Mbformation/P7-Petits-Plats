@@ -89,7 +89,7 @@ const recipes = [
         unit: "ml",
       },
       {
-        ingredient: "Coulis de tomate",
+        ingredient: "Coulis de tomates",
         quantity: 25,
         unit: "cl",
       },
@@ -109,7 +109,7 @@ const recipes = [
     ],
     time: 80,
     description:
-      "Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, laisser cuire en ajoutant de l'eau. Au bout de 30 minutes, ajouter le coulis de tomate, le lait de coco ainsi que le poivron et l'oignon découpés en morceaux. Laisser cuisiner 30 minutes de plus. Servir avec du riz",
+      "Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, laisser cuire en ajoutant de l'eau. Au bout de 30 minutes, ajouter le coulis de tomates, le lait de coco ainsi que le poivron et l'oignon découpés en morceaux. Laisser cuisiner 30 minutes de plus. Servir avec du riz",
     appliance: "Cocotte",
     ustensils: ["couteau"],
   },
@@ -206,7 +206,7 @@ const recipes = [
         quantity: 1,
       },
       {
-        ingredient: "Pomme",
+        ingredient: "Pomme(s)",
         quantity: 3,
       },
       {
@@ -269,7 +269,7 @@ const recipes = [
     description:
       "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
     appliance: "Four",
-    ustensils: ["moule à tartelettes (6)", "casserole"],
+    ustensils: ["moule à tartelettes", "casserole"],
   },
   {
     id: 8,
@@ -343,7 +343,7 @@ const recipes = [
     ],
     time: 15,
     description:
-      "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
+      "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olive à votre gout.",
     appliance: "Saladier",
     ustensils: ["cuillère en bois", "couteau"],
   },
@@ -406,7 +406,7 @@ const recipes = [
         unit: "tranches",
       },
       {
-        ingredient: "Pommes",
+        ingredient: "Pomme(s)",
         quantity: 1,
       },
       {
@@ -437,7 +437,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Pommes",
+        ingredient: "Pomme(s)",
         quantity: 8,
       },
       {
@@ -565,7 +565,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Banane",
+        ingredient: "Banane(s)",
         quantity: 4,
       },
     ],
@@ -602,7 +602,7 @@ const recipes = [
         unit: "tiges",
       },
       {
-        ingredient: "huile d'olives",
+        ingredient: "huile d'olive",
         quantity: 2,
         unit: "cuillère à soupe",
       },
@@ -681,7 +681,7 @@ const recipes = [
     servings: 4,
     ingredients: [
       {
-        ingredient: "Kiwi",
+        ingredient: "Kiwis",
         quantity: 4,
       },
       {
@@ -699,7 +699,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Banane",
+        ingredient: "Banane(s)",
         quantity: 1,
       },
     ],
@@ -763,7 +763,7 @@ const recipes = [
         quantity: 2,
       },
       {
-        ingredient: "Coulis de tomate",
+        ingredient: "Coulis de tomates",
         quantity: 300,
         unit: "grammes",
       },
@@ -961,7 +961,7 @@ const recipes = [
         quantity: 1,
       },
       {
-        ingredient: "Huile d'olives",
+        ingredient: "Huile d'olive",
       },
       {
         ingredient: "Oignon",
@@ -1356,7 +1356,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Huile d'olives",
+        ingredient: "Huile d'olive",
         quantity: 25,
         unit: "cl",
       },
@@ -1420,7 +1420,7 @@ const recipes = [
     servings: 40,
     ingredients: [
       {
-        ingredient: "Pomme",
+        ingredient: "Pomme(s)",
         quantity: 2,
       },
       {
@@ -1759,7 +1759,7 @@ const recipes = [
     servings: 4,
     ingredients: [
       {
-        ingredient: "Bananes",
+        ingredient: "Banane(s)",
         quantity: 2,
       },
       {

@@ -18,11 +18,18 @@ class RecipeCard {
       const ingredientEl = document.createElement("li");
       const ingredientsContainer = document.createElement("div");
       ingredientsContainer.classList.add("ingredients-container");
-      if (unit) {
-        ingredientsContainer.innerHTML += `<span>${name}</span><div class="measurement"><span>${quantity}</span><span>${unit}</span></div></div>`;
-      } else {
-        ingredientsContainer.innerHTML += `<span>${name}</span><span>${quantity}</span></div>`;
+      const ingredientName = document.createElement("span");
+      ingredientName.textContent = name;
+      const measurements = document.createElement("div");
+      measurements.classList.add("measurement");
+      if (quantity) {
+        measurements.innerHTML += `<span>${quantity}</span> `;
       }
+      if (unit) {
+        measurements.innerHTML += `<span>${unit}</span>`;
+      }
+      ingredientsContainer.appendChild(ingredientName);
+      ingredientsContainer.appendChild(measurements);
       ingredientEl.appendChild(ingredientsContainer);
       compEl.querySelector(".ingredients-list").appendChild(ingredientEl);
     });

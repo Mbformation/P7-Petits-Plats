@@ -3,6 +3,7 @@ import FilterUstensils from "../../../components/filters/FilterUstensils.js";
 import FilterIngredients from "../../../components/filters/FilterIngredients.js";
 import TotalRecipes from "../../../components/TotalRecipes.js";
 import GridCards from "../../../components/GridCards.js";
+import SelectedTag from "../../../components/SelectedTag.js";
 
 class MidSection {
   constructor(recipes, filterCriteria, updatePage) {
@@ -11,6 +12,8 @@ class MidSection {
     this.updatePage = updatePage;
     this.compEl = document.createElement("section");
     this.compEl.classList.add("mid-content");
+    this.wrapper = document.createElement("div");
+    this.wrapper.classList.add("wrapper");
     this.container = document.createElement("div");
     this.container.classList.add("container");
     this.filters = document.createElement("div");
@@ -19,19 +22,22 @@ class MidSection {
       this.filteredRecipes,
       this.filterCriteria,
       this.updatePage,
-      "ingredients"
+      "ingredients",
+      this.addTag.bind(this)
     );
     this.filterAppliance = new FilterAppliance(
       this.filteredRecipes,
       this.filterCriteria,
       this.updatePage,
-      "appliance"
+      "appliance",
+      this.addTag.bind(this)
     );
     this.filterUstensils = new FilterUstensils(
       this.filteredRecipes,
       this.filterCriteria,
       this.updatePage,
-      "ustensils"
+      "ustensils",
+      this.addTag.bind(this)
     );
     this.totalRecipes = new TotalRecipes();
     this.gridCards = new GridCards();
@@ -44,8 +50,9 @@ class MidSection {
     this.container.appendChild(
       this.totalRecipes.render(this.filteredRecipes.length)
     );
-    this.compEl.appendChild(this.container);
-    this.compEl.appendChild(this.gridCards.render(this.filteredRecipes));
+    this.wrapper.appendChild(this.container);
+    this.wrapper.appendChild(this.gridCards.render(this.filteredRecipes));
+    this.compEl.appendChild(this.wrapper);
     return this.compEl;
   }
 
@@ -54,7 +61,15 @@ class MidSection {
     this.filterAppliance.update(updatedRecipes);
     this.filterUstensils.update(updatedRecipes);
     this.container.appendChild(this.totalRecipes.render(updatedRecipes.length));
-    this.compEl.appendChild(this.gridCards.render(updatedRecipes));
+    this.wrapper.appendChild(this.gridCards.render(updatedRecipes));
+  }
+  addTag(tagName) {
+    const newTag = new SelectedTag(
+      tagName,
+      this.filterCriteria,
+      this.updatePage
+    );
+    this.wrapper.insertBefore(newTag.render(), this.wrapper.childNodes[1]);
   }
 }
 
