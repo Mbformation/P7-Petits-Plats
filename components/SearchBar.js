@@ -74,7 +74,6 @@ class SearchBar {
         this.filterCriteria.splice(doNotDisplayIndex, 1);
       }
 
-      // on affiche toutes les recettes
       const index = this.filterCriteria.findIndex((a) => a.type === "search");
       this.filterCriteria.splice(index, 1);
 

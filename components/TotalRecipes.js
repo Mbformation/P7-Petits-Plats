@@ -1,6 +1,6 @@
 class TotalRecipes {
   constructor() {
-    this.compEl = document.createElement("div");
+    this.compEl = document.createElement("h3");
     this.compEl.classList.add("total-recipes");
   }
   render(total) {

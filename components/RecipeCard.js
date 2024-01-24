@@ -6,12 +6,15 @@ class RecipeCard {
     const compEl = document.createElement("div");
     compEl.classList.add("recipe-card");
     const path = `./assets/recipesPhotos/${this.item.image}`;
-    compEl.innerHTML += `<img src="${path}"/> 
+    compEl.innerHTML += `<div class="recipe-time">${this.item.time}min</div> 
+    <img src="${path}"/>
+    <div class="text-wrapper">
     <h2>${this.item.name}</h2>
     <div class="recipe-title">Recette</div>
     <p>${this.item.description}</p>
     <div class="ingredients-title">Ingrédients</div>
     <ul class="ingredients-list">
+    </div>
     `;
     this.item.ingredients.forEach((ingredient) => {
       const { ingredient: name, quantity, unit } = ingredient;
@@ -19,6 +22,7 @@ class RecipeCard {
       const ingredientsContainer = document.createElement("div");
       ingredientsContainer.classList.add("ingredients-container");
       const ingredientName = document.createElement("span");
+      ingredientName.classList.add("ingredient-name");
       ingredientName.textContent = name;
       const measurements = document.createElement("div");
       measurements.classList.add("measurement");

@@ -49,7 +49,7 @@ class Page {
           case "ustensils":
             return this.propertyFilter(recipe, "ustensils", value);
           default:
-            return true; // return une valeur true ou false ?
+            return true;
         }
       });
     });

@@ -19,8 +19,16 @@ class TopSection {
     compEl.classList.add("top-content");
     const wrapper = document.createElement("div");
     wrapper.classList.add("wrapper");
+    const logoPath = "assets/full-logo.png";
+    const fullLogo = document.createElement("img");
+    fullLogo.src = logoPath;
+    const searchTitle = document.createElement("h1");
+    searchTitle.textContent =
+      "Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses";
     this.container.classList.add("search-container");
+    this.container.appendChild(searchTitle);
     this.container.appendChild(this.searchBar.render());
+    wrapper.appendChild(fullLogo);
     wrapper.appendChild(this.container);
     compEl.appendChild(wrapper);
     return compEl;

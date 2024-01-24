@@ -9,6 +9,10 @@ class SelectedTag {
     this.title.textContent = `${this.name}`;
     this.removeBtn = document.createElement("button");
     this.removeBtn.classList.add("remove");
+    this.removeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+    <path d="M12 11.5L7 6.5M7 6.5L2 1.5M7 6.5L12 1.5M7 6.5L2 11.5" stroke="" stroke-width="2.16667" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    this.removeBtn.innerHTML = this.removeIcon;
     this.listenForRemove();
   }
 
@@ -28,7 +32,6 @@ class SelectedTag {
         this.filterCriteria.splice(indexToRemove, 1);
       }
       const compEls = document.querySelectorAll(`.${this.name}`);
-      console.log(compEls);
 
       for (const el of compEls) {
         el.parentNode.removeChild(el);

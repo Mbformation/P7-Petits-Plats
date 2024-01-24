@@ -9,7 +9,7 @@ class FilterModel {
     this.dropBtn = document.createElement("button");
     this.dropBtn.classList.add("dropdown-toggle");
     this.menu = document.createElement("div");
-    this.menu.classList.add("dropdown-menu");
+    this.menu.classList.add("dropdown-menu", "open");
     this.selectedTagsContainer = document.createElement("div");
     this.selectedTagsContainer.classList.add("selected-tags");
     this.tagOptions = document.createElement("ul");
@@ -37,8 +37,10 @@ class FilterModel {
 
   render() {
     this.dropBtn.innerHTML += `
-      <span class="dropdown-title">Title</span>
-      <span class="dropdown-chevron"></span>`;
+      <div class="dropdown-title">${this.getFilterTitle()}</div>
+      <div class="dropdown-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 15 8" fill="none">
+      <path d="M1 1L7.5 7L14 1" stroke="currentColor" stroke-linecap="round"/>
+    </svg></div>`;
     this.compEl.appendChild(this.dropBtn);
     return this.compEl;
   }
@@ -85,9 +87,25 @@ class FilterModel {
     return this.filteredRecipes;
   }
 
+  getFilterTitle() {
+    switch (this.tagId) {
+      case "ingredients":
+        return "Ingrédients";
+      case "appliance":
+        return "Appareils";
+      case "ustensils":
+        return "Ustensiles";
+      default:
+        console.log(this.filterCriteria);
+        return "Lolo";
+    }
+  }
+
   listenForToggle(getTagsList) {
     let isOpen = false;
     this.dropBtn.addEventListener("click", () => {
+      const chevron = this.dropBtn.querySelector(".dropdown-chevron");
+      chevron.classList.toggle("rotate");
       if (isOpen === false) {
         const tagList = getTagsList(this.getRecipes());
         const tagsLeft = tagList.filter(
