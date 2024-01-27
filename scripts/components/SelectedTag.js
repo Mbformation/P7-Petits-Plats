@@ -4,7 +4,10 @@ class SelectedTag {
     this.filterCriteria = filterCriteria;
     this.updatePage = updatePage;
     this.compEl = document.createElement("div");
-    this.compEl.classList.add("selected-tag", `${this.name}`);
+    this.compEl.classList.add(
+      "selected-tag",
+      `${this.name.toLowerCase().replace(/\W/g, "-")}`
+    );
     this.title = document.createElement("span");
     this.title.textContent = `${this.name}`;
     this.removeBtn = document.createElement("button");
@@ -31,7 +34,9 @@ class SelectedTag {
       if (indexToRemove !== -1) {
         this.filterCriteria.splice(indexToRemove, 1);
       }
-      const compEls = document.querySelectorAll(`.${this.name}`);
+      const compEls = document.querySelectorAll(
+        `.${this.name.toLowerCase().replace(/\W/g, "-")}`
+      );
 
       for (const el of compEls) {
         el.parentNode.removeChild(el);

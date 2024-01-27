@@ -8,11 +8,11 @@ class FilterIngredients extends FilterModel {
     this.updatePage = updatePage;
     this.tagId = tagId;
     this.addTag = addTag;
-    super.listenForToggle(this.listIngredients);
+    super.listenForToggle();
   }
 
-  listIngredients(recipes) {
-    const ingredients = recipes
+  getTagNames() {
+    const ingredients = this.filteredRecipes
       .flatMap((recipe) =>
         recipe.ingredients.map((ingredient) =>
           ingredient.ingredient.toLowerCase()
@@ -26,7 +26,8 @@ class FilterIngredients extends FilterModel {
     return ingredients;
   }
   update(recipes) {
-    super.updateMenu(this.listIngredients, recipes);
+    this.filteredRecipes = recipes;
+    super.updateTags();
   }
 }
 

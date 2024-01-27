@@ -1,11 +1,11 @@
-import FilterAppliance from "../../../components/filters/FilterAppliance.js";
-import FilterUstensils from "../../../components/filters/FilterUstensils.js";
-import FilterIngredients from "../../../components/filters/FilterIngredients.js";
-import TotalRecipes from "../../../components/TotalRecipes.js";
-import GridCards from "../../../components/GridCards.js";
-import SelectedTag from "../../../components/SelectedTag.js";
+import FilterAppliance from "../components/filters/FilterAppliance.js";
+import FilterUstensils from "../components/filters/FilterUstensils.js";
+import FilterIngredients from "../components/filters/FilterIngredients.js";
+import TotalRecipes from "../components/TotalRecipes.js";
+import GridCards from "../components/GridCards.js";
+import SelectedTag from "../components/SelectedTag.js";
 
-class MidSection {
+class RecipesSection {
   constructor(recipes, filterCriteria, updatePage) {
     this.filteredRecipes = recipes;
     this.filterCriteria = filterCriteria;
@@ -78,4 +78,4 @@ class MidSection {
   }
 }
 
-export default MidSection;
+export default RecipesSection;

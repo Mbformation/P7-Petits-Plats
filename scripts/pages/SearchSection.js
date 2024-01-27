@@ -1,6 +1,6 @@
-import SearchBar from "../../../components/SearchBar.js";
+import SearchBar from "../components/SearchBar.js";
 
-class TopSection {
+class SearchSection {
   constructor(filterCriteria, update, addTag) {
     this.filterCriteria = filterCriteria;
     this.update = update;
@@ -46,4 +46,4 @@ class TopSection {
   }
 }
 
-export default TopSection;
+export default SearchSection;

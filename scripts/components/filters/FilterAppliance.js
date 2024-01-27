@@ -8,11 +8,13 @@ class FilterAppliance extends FilterModel {
     this.updatePage = updatePage;
     this.tagId = tagId;
     this.addTag = addTag;
-    super.listenForToggle(this.listAppliances);
+    super.listenForToggle();
   }
 
-  listAppliances(recipes) {
-    const appliances = recipes.flatMap((recipe) => recipe.appliance);
+  getTagNames() {
+    const appliances = this.filteredRecipes.flatMap(
+      (recipe) => recipe.appliance
+    );
     const uniqueAppliances = Array.from(new Set(appliances))
       .map(
         (appliance) => appliance.charAt(0).toUpperCase() + appliance.slice(1)
@@ -22,7 +24,8 @@ class FilterAppliance extends FilterModel {
     return uniqueAppliances;
   }
   update(recipes) {
-    super.updateMenu(this.listAppliances, recipes);
+    this.filteredRecipes = recipes;
+    super.updateTags();
   }
 }
 

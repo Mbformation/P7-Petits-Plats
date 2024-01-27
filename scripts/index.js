@@ -1,19 +1,19 @@
-import TopSection from "./TopSection.js";
-import MidSection from "./MidSection.js";
-import GetRecipes from "../../../utils/GetRecipes.js";
-import { norm } from "../../../utils/normalise.js";
+import SearchSection from "./pages/SearchSection.js";
+import RecipesSection from "./pages/RecipesSection.js";
+import GetRecipes from "../utils/GetRecipes.js";
+import { norm } from "../utils/normalise.js";
 
 class Page {
   constructor() {
     this.recipes = new GetRecipes();
     this.filterCriteria = [];
     this.filteredRecipes = [];
-    this.topSection = new TopSection(
+    this.searchSection = new SearchSection(
       this.filterCriteria,
       this.updatePage.bind(this),
       this.addTag.bind(this)
     );
-    this.midSection = new MidSection(
+    this.recipesSection = new RecipesSection(
       this.filterRecipes(),
       this.filterCriteria,
       this.updatePage.bind(this)
@@ -22,13 +22,14 @@ class Page {
 
   render() {
     const app = document.querySelector(".app");
-    app.appendChild(this.topSection.render());
-    app.appendChild(this.midSection.render());
+    app.appendChild(this.searchSection.render());
+    app.appendChild(this.recipesSection.render());
   }
 
   updatePage() {
+    console.log(this.filterCriteria);
     this.filterRecipes();
-    this.midSection.update(this.filteredRecipes);
+    this.recipesSection.update(this.filteredRecipes);
   }
 
   filterRecipes() {
@@ -87,7 +88,7 @@ class Page {
     }
   }
   addTag(tagName) {
-    this.midSection.addTag(tagName);
+    this.recipesSection.addTag(tagName);
   }
 }
 

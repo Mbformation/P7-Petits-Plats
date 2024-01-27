@@ -32,7 +32,7 @@ class FilterModel {
       }
     });
     this.selectedTags = [];
-    this.filterSearch = new FilterSearch(this, this.selectedTags);
+    this.filterSearch = new FilterSearch(this.filterList.bind(this));
   }
 
   render() {
@@ -42,6 +42,10 @@ class FilterModel {
       <path d="M1 1L7.5 7L14 1" stroke="currentColor" stroke-linecap="round"/>
     </svg></div>`;
     this.compEl.appendChild(this.dropBtn);
+    this.menu.appendChild(this.filterSearch.render());
+    this.menu.appendChild(this.selectedTagsContainer);
+    this.menu.appendChild(this.renderTags(this.getTagNames()));
+    this.compEl.appendChild(this.menu);
     return this.compEl;
   }
 
@@ -55,36 +59,34 @@ class FilterModel {
     return this.tagOptions;
   }
 
-  renderMenu(availableTags) {
-    this.filterSearch.updateList(availableTags);
-    this.menu.appendChild(this.filterSearch.render());
-    this.menu.appendChild(this.selectedTagsContainer);
-    this.menu.appendChild(this.renderTags(availableTags));
-    this.compEl.appendChild(this.menu);
-  }
-
-  updateMenu(getTagsList, recipes) {
-    this.filteredRecipes = recipes;
-    const tagList = getTagsList(this.filteredRecipes);
+  updateTags() {
     this.selectedTags = Array.from(this.selectedTagsContainer.children).map(
-      (child) => child.textContent
+      (child) => child.textContent.trim()
     );
-    const tagsLeft = tagList.filter((tag) => !this.selectedTags.includes(tag));
-    this.filterSearch.updateList(tagsLeft);
-  }
 
-  closeMenu() {
-    const menu = this.compEl.querySelector(".dropdown-menu");
-    if (menu) {
-      while (menu.nextSibling) {
-        menu.parentNode.removeChild(menu.nextSibling);
+    for (const tag of this.selectedTags) {
+      if (typeof tag !== "string" || !tag) {
+        this.selectedTags = this.selectedTags.filter(
+          (otherTag) => otherTag !== tag
+        );
       }
-      this.compEl.removeChild(menu);
     }
+
+    const tagsLeft = this.getTagNames().filter(
+      (tag) => !this.selectedTags.includes(tag.trim())
+    );
+
+    this.renderTags(tagsLeft);
   }
 
-  getRecipes() {
-    return this.filteredRecipes;
+  filterList(input) {
+    const lowercaseInput = input.toLowerCase();
+
+    const filteredList = this.getTagNames().filter((item) =>
+      item.toLowerCase().includes(lowercaseInput)
+    );
+
+    this.renderTags(filteredList);
   }
 
   getFilterTitle() {
@@ -96,26 +98,15 @@ class FilterModel {
       case "ustensils":
         return "Ustensiles";
       default:
-        console.log(this.filterCriteria);
-        return "Lolo";
+        return "Undefined";
     }
   }
 
-  listenForToggle(getTagsList) {
-    let isOpen = false;
+  listenForToggle() {
     this.dropBtn.addEventListener("click", () => {
       const chevron = this.dropBtn.querySelector(".dropdown-chevron");
       chevron.classList.toggle("rotate");
-      if (isOpen === false) {
-        const tagList = getTagsList(this.getRecipes());
-        const tagsLeft = tagList.filter(
-          (tag) => !this.selectedTags.includes(tag)
-        );
-        this.renderMenu(tagsLeft);
-      } else {
-        this.closeMenu();
-      }
-      isOpen = !isOpen;
+      this.menu.classList.toggle("show");
     });
   }
 }

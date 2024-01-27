@@ -41,7 +41,7 @@ const recipes = [
     servings: 2,
     ingredients: [
       {
-        ingredient: "Thon Rouge (ou blanc)",
+        ingredient: "Thon Rouge ou blanc",
         quantity: 200,
         unit: "grammes",
       },
@@ -206,7 +206,7 @@ const recipes = [
         quantity: 1,
       },
       {
-        ingredient: "Pomme(s)",
+        ingredient: "Pommes",
         quantity: 3,
       },
       {
@@ -406,7 +406,7 @@ const recipes = [
         unit: "tranches",
       },
       {
-        ingredient: "Pomme(s)",
+        ingredient: "Pommes",
         quantity: 1,
       },
       {
@@ -437,7 +437,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Pomme(s)",
+        ingredient: "Pommes",
         quantity: 8,
       },
       {
@@ -565,7 +565,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Banane(s)",
+        ingredient: "Bananes",
         quantity: 4,
       },
     ],
@@ -699,7 +699,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Banane(s)",
+        ingredient: "Bananes",
         quantity: 1,
       },
     ],
@@ -1420,7 +1420,7 @@ const recipes = [
     servings: 40,
     ingredients: [
       {
-        ingredient: "Pomme(s)",
+        ingredient: "Pommes",
         quantity: 2,
       },
       {
@@ -1759,7 +1759,7 @@ const recipes = [
     servings: 4,
     ingredients: [
       {
-        ingredient: "Banane(s)",
+        ingredient: "Bananes",
         quantity: 2,
       },
       {

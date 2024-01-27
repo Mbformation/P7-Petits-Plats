@@ -8,11 +8,11 @@ class FilterUstensils extends FilterModel {
     this.updatePage = updatePage;
     this.tagId = tagId;
     this.addTag = addTag;
-    super.listenForToggle(this.listUstensils);
+    super.listenForToggle();
   }
 
-  listUstensils(recipes) {
-    const ustensils = recipes
+  getTagNames() {
+    const ustensils = this.filteredRecipes
       .flatMap((recipe) => recipe.ustensils)
       .map((ustensil) => ustensil.toLowerCase());
     const uniqueUstensils = Array.from(new Set(ustensils))
@@ -21,7 +21,8 @@ class FilterUstensils extends FilterModel {
     return uniqueUstensils;
   }
   update(recipes) {
-    super.updateMenu(this.listUstensils, recipes);
+    this.filteredRecipes = recipes;
+    super.updateTags();
   }
 }
 
