@@ -1,7 +1,7 @@
 import SearchSection from "./pages/SearchSection.js";
 import RecipesSection from "./pages/RecipesSection.js";
-import GetRecipes from "../utils/GetRecipes.js";
-import { norm } from "../utils/normalise.js";
+import GetRecipes from "./utils/GetRecipes.js";
+import { norm } from "./utils/Normalise.js";
 
 class Page {
   constructor() {

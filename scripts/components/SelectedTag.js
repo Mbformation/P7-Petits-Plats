@@ -27,11 +27,14 @@ class SelectedTag {
 
   listenForRemove() {
     this.removeBtn.addEventListener("click", (event) => {
+      console.log(this.filterCriteria);
       this.filterCriteria.forEach((obj, index) => {
         if (obj.value.toLowerCase() === this.title.textContent.toLowerCase()) {
-          this.filterCriteria.splice(index, 1);
+          console.log(obj);
+          this.filterCriteria.splice(index);
         }
       });
+      console.log(this.filterCriteria);
       const compEls = document.querySelectorAll(
         `.${this.name.toLowerCase().replace(/\W/g, "-")}`
       );
