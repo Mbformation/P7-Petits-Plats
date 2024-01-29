@@ -30,6 +30,8 @@ class SearchBar {
     this.compEl.appendChild(this.searchBtn);
     this.listenForInput();
     this.listenForClick();
+    this.searchBtn.disabled = true;
+    this.searchBtn.style.opacity = 0.5;
   }
   render() {
     return this.compEl;
