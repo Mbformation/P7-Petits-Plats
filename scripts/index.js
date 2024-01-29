@@ -27,7 +27,6 @@ class Page {
   }
 
   updatePage() {
-    console.log(this.filterCriteria);
     const filteredRecipes = this.filterRecipes(
       this.recipes,
       this.filterCriteria
@@ -36,42 +35,76 @@ class Page {
   }
 
   filterRecipes(recipes, filterCriteria) {
-    return recipes.filter((recipe) => {
-      return filterCriteria.every((criteria) => {
-        const { value, type } = criteria;
+    const filteredRecipes = [];
+    for (let i = 0; i < recipes.length; i++) {
+      const recipe = recipes[i];
+
+      for (let v = 0; v < filterCriteria.length; v++) {
+        const { value, type } = filterCriteria[v];
+        console.log(value, type);
 
         switch (type) {
           case "searched":
-            return this.searchFilter(recipe, value);
+            if (this.searchFilter(recipe, value)) {
+              filteredRecipes.push(recipe);
+            }
+            break;
+
           case "search":
-            return this.searchFilter(recipe, value);
+            if (this.searchFilter(recipe, value)) {
+              filteredRecipes.push(recipe);
+            }
+            break;
+
           case "ingredients":
-            return this.propertyFilter(
-              recipe.ingredients,
-              "ingredients",
-              value
-            );
+            if (this.propertyFilter(recipe.ingredients, "ingredients", value)) {
+              filteredRecipes.push(recipe);
+            }
+            break;
+
           case "appliance":
-            return this.propertyFilter(recipe, "appliance", value);
+            if (this.propertyFilter(recipe, "appliance", value)) {
+              filteredRecipes.push(recipe);
+            }
+            break;
+
           case "ustensils":
-            return this.propertyFilter(recipe, "ustensils", value);
+            if (this.propertyFilter(recipe, "ustensils", value)) {
+              filteredRecipes.push(recipe);
+            }
+            break;
+
           default:
-            return true;
+            console.log("dfault");
         }
-      });
-    });
+      }
+    }
+
+    return filteredRecipes;
   }
 
   searchFilter(recipe, value) {
-    const { name, ingredients, description } = recipe;
+    const name = recipe.name;
+    const ingredients = recipe.ingredients;
+    const description = recipe.description;
     const lowerValue = value.toLowerCase();
-    return (
-      name.toLowerCase().includes(lowerValue) ||
-      ingredients.some((ingredient) =>
-        ingredient.ingredient.toLowerCase().includes(lowerValue)
-      ) ||
-      description.toLowerCase().includes(lowerValue)
-    );
+    let isFound = false;
+    for (let i = 0; i < ingredients.length; i++) {
+      const ing = ingredients[i].ingredient.toLowerCase();
+      if (ing.includes(lowerValue)) {
+        isFound = true;
+      }
+    }
+
+    if (name.toLowerCase().includes(lowerValue)) {
+      isFound = true;
+    }
+
+    if (description.toLowerCase().includes(lowerValue)) {
+      isFound = true;
+    }
+
+    return isFound;
   }
 
   propertyFilter(item, property, value) {
