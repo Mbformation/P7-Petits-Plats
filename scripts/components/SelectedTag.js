@@ -27,10 +27,9 @@ class SelectedTag {
 
   listenForRemove() {
     this.removeBtn.addEventListener("click", (event) => {
-      this.filterCriteria.forEach((obj) => {
-        if (obj.value === this.title.textContent && obj.type === "searched") {
-          console.log(obj);
-          this.filterCriteria.splice(obj, 2);
+      this.filterCriteria.forEach((obj, index) => {
+        if (obj.value.toLowerCase() === this.title.textContent.toLowerCase()) {
+          this.filterCriteria.splice(index, 1);
         }
       });
       const compEls = document.querySelectorAll(
