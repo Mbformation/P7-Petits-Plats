@@ -1,4 +1,4 @@
-
+/*  ----- GENERAL STYLING -----*/
 @font-face {
     font-family: 'Anton';
     src: url('../fonts/Anton-Regular.ttf') format('truetype');
@@ -20,6 +20,9 @@ body {
 h1, h2, h3 {
     font-family: 'Anton', sans-serif;
 }
+
+
+/*  ----- Search Section -----*/
 
 .top-content {
     padding-top: 50px;
@@ -106,7 +109,7 @@ h1, h2, h3 {
 }
 
 
-/*MID CONTENT */
+/*  ----- Recipes Section -----*/
 
 
 .mid-content {
@@ -328,6 +331,11 @@ h1, h2, h3 {
     width: 100%;
 }
 
+.recipe-card .text-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;    
+}
+
 .recipe-card h2 {
     font-size: 20px;
     font-weight: 400;
@@ -399,6 +407,9 @@ h1, h2, h3 {
 }
 
 
+/*  ----- Tablettes -----*/
+
+
 @media (max-width: 1250px) {
     .top-content {
         padding-bottom: 100px;
@@ -443,6 +454,9 @@ h1, h2, h3 {
         padding-top: 0;
     }
 }
+
+
+/*  ----- Mobiles -----*/
 
 
 @media (max-width: 840px) {

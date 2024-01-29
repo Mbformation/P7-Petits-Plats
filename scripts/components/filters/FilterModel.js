@@ -2,6 +2,8 @@ import FilterSearch from "./FilterSearch.js";
 import Tag from "../Tag.js";
 import SelectedTag from "../SelectedTag.js";
 
+// Classe abstraite servant de modèle pour chaque filtre
+// Cette classe sert à isoler le code redondant et à ne pas le dupliquer
 class FilterModel {
   constructor() {
     this.compEl = document.createElement("div");
@@ -14,8 +16,12 @@ class FilterModel {
     this.selectedTagsContainer.classList.add("selected-tags");
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
+    this.filterSearch = new FilterSearch(this.filterList.bind(this));
+    this.tagsLeft = [];
+    // Pour éviter de créer des listeners à chaque tag, je n'en crée qu'un seul qui écoute chaque tag individuellement
     this.tagOptions.addEventListener("click", (event) => {
       if (event.target.classList.contains("tag")) {
+        // ajoute le tag dans catégorie sélectionné du filtre
         this.selectedTagsContainer.appendChild(
           new SelectedTag(
             event.target.textContent,
@@ -23,16 +29,17 @@ class FilterModel {
             this.updatePage
           ).render()
         );
+        // ajoute le tag dans catégorie sélectionné dans la page
         this.addTag(event.target.textContent);
+        // actualise les critères de recherche
         this.filterCriteria.push({
           value: event.target.textContent,
           type: this.tagId,
         });
+        // actualise la page avec les nouveaux critères de recherche
         this.updatePage();
       }
     });
-    this.selectedTags = [];
-    this.filterSearch = new FilterSearch(this.filterList.bind(this));
   }
 
   render() {
@@ -50,9 +57,11 @@ class FilterModel {
   }
 
   renderTags(availableTags) {
+    // retirer les tags de la précédente recherche
     while (this.tagOptions.firstChild) {
       this.tagOptions.removeChild(this.tagOptions.firstChild);
     }
+    // afficher les tags de la recherche actuelle
     availableTags.forEach((name) => {
       this.tagOptions.appendChild(new Tag(name).render());
     });
@@ -60,29 +69,24 @@ class FilterModel {
   }
 
   updateTags() {
-    this.selectedTags = Array.from(this.selectedTagsContainer.children).map(
+    // reconstituer la liste des tags sélectionnés à partir des tags sélectionnés du DOM
+    const selectedTags = Array.from(this.selectedTagsContainer.children).map(
       (child) => child.textContent.trim()
     );
 
-    for (const tag of this.selectedTags) {
-      if (typeof tag !== "string" || !tag) {
-        this.selectedTags = this.selectedTags.filter(
-          (otherTag) => otherTag !== tag
-        );
-      }
-    }
-
-    const tagsLeft = this.getTagNames().filter(
-      (tag) => !this.selectedTags.includes(tag.trim())
+    // soustraire les tags sélectionnés de la liste des tags disponibles pour en tirer les tags restant à afficher
+    this.tagsLeft = this.getTagNames().filter(
+      (tag) => !selectedTags.includes(tag)
     );
 
-    this.renderTags(tagsLeft);
+    // afficher les tags restants
+    this.renderTags(this.tagsLeft);
   }
 
   filterList(input) {
     const lowercaseInput = input.toLowerCase();
 
-    const filteredList = this.getTagNames().filter((item) =>
+    const filteredList = this.tagsLeft.filter((item) =>
       item.toLowerCase().includes(lowercaseInput)
     );
 

@@ -57,7 +57,13 @@ class SearchBar {
             type: "search",
           });
         }
-
+        const searchCriteriaIndex = this.filterCriteria.findIndex(
+          (criteria) =>
+            criteria.type === "search" && criteria.value !== "do-not-search"
+        );
+        if (searchCriteriaIndex !== -1) {
+          this.filterCriteria.splice(searchCriteriaIndex, 1);
+        }
         this.update(this.filterCriteria);
 
         return;
@@ -68,14 +74,18 @@ class SearchBar {
       }
 
       const doNotDisplayIndex = this.filterCriteria.findIndex(
-        (a) => a.value === "do-not-search"
+        (criteria) => criteria.type === "do-not-search"
       );
-      if (doNotDisplayIndex > -1) {
+      if (doNotDisplayIndex !== -1) {
         this.filterCriteria.splice(doNotDisplayIndex, 1);
       }
 
-      const index = this.filterCriteria.findIndex((a) => a.type === "search");
-      this.filterCriteria.splice(index, 1);
+      const searchCriteriaIndex = this.filterCriteria.findIndex(
+        (criteria) => criteria.type === "search"
+      );
+      if (searchCriteriaIndex !== -1) {
+        this.filterCriteria.splice(searchCriteriaIndex, 1);
+      }
 
       this.filterCriteria.push({
         value: event.target.value,
@@ -84,9 +94,21 @@ class SearchBar {
       this.update(this.filterCriteria);
     });
   }
+
   listenForClick() {
     this.searchBtn.addEventListener("click", (event) => {
       this.addTag(this.input.value);
+      console.log(this.filterCriteria);
+      const searchCriteriaIndex = this.filterCriteria.findIndex(
+        (criteria) => criteria.type === "search"
+      );
+      if (searchCriteriaIndex !== -1) {
+        this.filterCriteria.splice(searchCriteriaIndex, 1);
+      }
+      this.filterCriteria.push({
+        value: this.input.value,
+        type: "searched",
+      });
       this.input.value = "";
     });
   }

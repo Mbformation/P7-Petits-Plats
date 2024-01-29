@@ -27,13 +27,12 @@ class SelectedTag {
 
   listenForRemove() {
     this.removeBtn.addEventListener("click", (event) => {
-      const indexToRemove = this.filterCriteria.findIndex(
-        (obj) => obj.value === this.title.textContent
-      );
-
-      if (indexToRemove !== -1) {
-        this.filterCriteria.splice(indexToRemove, 1);
-      }
+      this.filterCriteria.forEach((obj) => {
+        if (obj.value === this.title.textContent && obj.type === "searched") {
+          console.log(obj);
+          this.filterCriteria.splice(obj, 2);
+        }
+      });
       const compEls = document.querySelectorAll(
         `.${this.name.toLowerCase().replace(/\W/g, "-")}`
       );

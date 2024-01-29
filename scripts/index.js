@@ -14,7 +14,7 @@ class Page {
       this.addTag.bind(this)
     );
     this.recipesSection = new RecipesSection(
-      this.filterRecipes(),
+      this.recipes,
       this.filterCriteria,
       this.updatePage.bind(this)
     );
@@ -28,15 +28,21 @@ class Page {
 
   updatePage() {
     console.log(this.filterCriteria);
-    this.filterRecipes();
-    this.recipesSection.update(this.filteredRecipes);
+    const filteredRecipes = this.filterRecipes(
+      this.recipes,
+      this.filterCriteria
+    );
+    this.recipesSection.update(filteredRecipes);
   }
 
-  filterRecipes() {
-    this.filteredRecipes = this.recipes.filter((recipe) => {
-      return this.filterCriteria.every((criteria) => {
+  filterRecipes(recipes, filterCriteria) {
+    return recipes.filter((recipe) => {
+      return filterCriteria.every((criteria) => {
         const { value, type } = criteria;
+
         switch (type) {
+          case "searched":
+            return this.searchFilter(recipe, value);
           case "search":
             return this.searchFilter(recipe, value);
           case "ingredients":
@@ -50,11 +56,10 @@ class Page {
           case "ustensils":
             return this.propertyFilter(recipe, "ustensils", value);
           default:
-            return true;
+            return true; // return une valeur true ou false ?
         }
       });
     });
-    return this.filteredRecipes;
   }
 
   searchFilter(recipe, value) {
@@ -87,6 +92,7 @@ class Page {
         return false;
     }
   }
+
   addTag(tagName) {
     this.recipesSection.addTag(tagName);
   }
