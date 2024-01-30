@@ -11,6 +11,7 @@ class FilterUstensils extends FilterModel {
     this.tagId = tagId;
     this.addTag = addTag;
     super.listenForToggle(); // exécute la méthode définie dans filterModel pour ouvrir/fermer le menu.
+    this.tagsLeft = this.getTagNames();
   }
 
   // Méthode spécifique pour récupérer la liste des ustensiles utilisés dans la liste de recettes sélectionnées

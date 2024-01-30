@@ -1,3 +1,5 @@
+import { sanitise } from "../utils/Sanitise.js";
+
 class SearchBar {
   constructor(filterCriteria, update, addTag, showError) {
     this.filterCriteria = filterCriteria;
@@ -90,7 +92,7 @@ class SearchBar {
       }
 
       this.filterCriteria.push({
-        value: event.target.value,
+        value: sanitise(event.target.value),
         type: "search",
       });
       this.update(this.filterCriteria);
@@ -98,7 +100,7 @@ class SearchBar {
   }
 
   listenForClick() {
-    this.searchBtn.addEventListener("click", (event) => {
+    this.searchBtn.addEventListener("click", () => {
       this.addTag(this.input.value);
       console.log(this.filterCriteria);
       const searchCriteriaIndex = this.filterCriteria.findIndex(
@@ -108,7 +110,7 @@ class SearchBar {
         this.filterCriteria.splice(searchCriteriaIndex, 1);
       }
       this.filterCriteria.push({
-        value: this.input.value,
+        value: sanitise(this.input.value),
         type: "searched",
       });
       this.input.value = "";

@@ -75,18 +75,24 @@ class Page {
   }
 
   propertyFilter(item, property, value) {
+    let ing,
+      normalizedIngredient,
+      appliance,
+      normalizedValue,
+      ustensils,
+      normalizedUstensil;
     switch (property) {
       case "ingredients":
-        const ing = item.map((i) => norm(i.ingredient));
-        const normalizedIngredient = norm(value);
+        ing = item.map((i) => norm(i.ingredient));
+        normalizedIngredient = norm(value);
         return ing.some((i) => i === normalizedIngredient);
       case "appliance":
-        const appliance = norm(item[property]);
-        const normalizedValue = norm(value);
+        appliance = norm(item[property]);
+        normalizedValue = norm(value);
         return appliance === normalizedValue;
       case "ustensils":
-        const ustensils = item[property].map((ustensil) => norm(ustensil));
-        const normalizedUstensil = norm(value);
+        ustensils = item[property].map((ustensil) => norm(ustensil));
+        normalizedUstensil = norm(value);
         return ustensils.some((ustensil) => ustensil === normalizedUstensil);
       default:
         return false;

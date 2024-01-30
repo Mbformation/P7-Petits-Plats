@@ -17,7 +17,6 @@ class FilterModel {
     this.tagOptions = document.createElement("ul");
     this.tagOptions.classList.add("filter-tags");
     this.filterSearch = new FilterSearch(this.filterList.bind(this));
-    this.tagsLeft = [];
     // Pour éviter de créer des listeners à chaque tag, je n'en crée qu'un seul qui écoute chaque tag individuellement
     this.tagOptions.addEventListener("click", (event) => {
       if (event.target.classList.contains("tag")) {

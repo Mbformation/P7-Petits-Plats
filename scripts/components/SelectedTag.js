@@ -26,7 +26,7 @@ class SelectedTag {
   }
 
   listenForRemove() {
-    this.removeBtn.addEventListener("click", (event) => {
+    this.removeBtn.addEventListener("click", () => {
       console.log(this.filterCriteria);
       this.filterCriteria.forEach((obj, index) => {
         if (obj.value.toLowerCase() === this.title.textContent.toLowerCase()) {
