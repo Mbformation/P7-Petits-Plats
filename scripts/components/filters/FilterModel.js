@@ -25,11 +25,12 @@ class FilterModel {
           new SelectedTag(
             event.target.textContent,
             this.filterCriteria,
-            this.updatePage
+            this.updatePage,
+            "filter-tag"
           ).render()
         );
         // ajoute le tag dans catégorie sélectionné dans la page
-        this.addTag(event.target.textContent);
+        this.addTag(event.target.textContent, "filter-tag");
         // actualise les critères de recherche
         this.filterCriteria.push({
           value: event.target.textContent,

@@ -1,12 +1,15 @@
 class SelectedTag {
-  constructor(name, filterCriteria, updatePage) {
+  constructor(name, filterCriteria, updatePage, type) {
     this.name = name;
     this.filterCriteria = filterCriteria;
     this.updatePage = updatePage;
+    this.type = type;
     this.compEl = document.createElement("div");
     this.compEl.classList.add(
       "selected-tag",
-      `${this.name.toLowerCase().replace(/\W/g, "-")}`
+      `${this.name.toLowerCase().replace(/\W/g, "-")}`,
+      this.type,
+      this.name
     );
     this.title = document.createElement("span");
     this.title.textContent = `${this.name}`;
@@ -31,18 +34,17 @@ class SelectedTag {
       this.filterCriteria.forEach((obj, index) => {
         if (obj.value.toLowerCase() === this.title.textContent.toLowerCase()) {
           console.log(obj);
-          this.filterCriteria.splice(index);
+          this.filterCriteria.splice(index, 1);
         }
       });
       console.log(this.filterCriteria);
-      const compEls = document.querySelectorAll(
-        `.${this.name.toLowerCase().replace(/\W/g, "-")}`
-      );
 
-      for (const el of compEls) {
-        el.parentNode.removeChild(el);
+      this.compEl.remove();
+      const twinTag = document.querySelector(`.${this.type}.${this.name}`);
+
+      if (twinTag) {
+        twinTag.remove();
       }
-
       this.updatePage();
     });
   }

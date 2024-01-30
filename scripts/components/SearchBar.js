@@ -101,7 +101,7 @@ class SearchBar {
 
   listenForClick() {
     this.searchBtn.addEventListener("click", () => {
-      this.addTag(this.input.value);
+      this.addTag(this.input.value, "search-tag");
       console.log(this.filterCriteria);
       const searchCriteriaIndex = this.filterCriteria.findIndex(
         (criteria) => criteria.type === "search"

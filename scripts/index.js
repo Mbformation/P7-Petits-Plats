@@ -99,8 +99,8 @@ class Page {
     }
   }
 
-  addTag(tagName) {
-    this.recipesSection.addTag(tagName);
+  addTag(tagName, tagType) {
+    this.recipesSection.addTag(tagName, tagType);
   }
 }
 

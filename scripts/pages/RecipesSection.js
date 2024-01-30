@@ -68,11 +68,12 @@ class RecipesSection {
     );
     this.wrapper.appendChild(this.gridCards.render(updatedRecipes));
   }
-  addTag(tagName) {
+  addTag(tagName, tagType) {
     const newTag = new SelectedTag(
       tagName,
       this.filterCriteria,
-      this.updatePage
+      this.updatePage,
+      tagType
     );
     this.tagsContainer.appendChild(newTag.render());
   }
