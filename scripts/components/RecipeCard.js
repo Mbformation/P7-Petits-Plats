@@ -1,3 +1,4 @@
+// Composant template d'un recette
 class RecipeCard {
   constructor(item) {
     this.item = item;
@@ -26,6 +27,7 @@ class RecipeCard {
       ingredientName.textContent = name;
       const measurements = document.createElement("div");
       measurements.classList.add("measurement");
+      // Certaines recettes n'ont pas de quantité ou de mesure
       if (quantity) {
         measurements.innerHTML += `<span>${quantity}</span> `;
       }

@@ -1,5 +1,6 @@
 import { sanitise } from "../utils/Sanitise.js";
 
+// Composant de la recherche principale
 class SearchBar {
   constructor(filterCriteria, update, addTag, showError) {
     this.filterCriteria = filterCriteria;
@@ -32,12 +33,17 @@ class SearchBar {
     this.compEl.appendChild(this.searchBtn);
     this.listenForInput();
     this.listenForClick();
+    // On désactive le bouton de recherche par défaut
     this.searchBtn.disabled = true;
     this.searchBtn.style.opacity = 0.5;
   }
+
   render() {
     return this.compEl;
   }
+
+  // listener pour chaque input de l'utilisateur
+  // proposer d'afficher les recettes et de créer un tag uniquement à partir de 3 caractères
   listenForInput() {
     this.compEl.addEventListener("input", (event) => {
       if (event.target.value.trim().length < 3) {
@@ -53,7 +59,7 @@ class SearchBar {
       ) {
         this.showError();
         const exists = this.filterCriteria.find(
-          (a) => a.value === "do-not-search"
+          (a) => a.value === "do-not-search" // valeur servant à afficher 0 recettes
         );
         if (!exists) {
           this.filterCriteria.push({
@@ -65,6 +71,7 @@ class SearchBar {
           (criteria) =>
             criteria.type === "search" && criteria.value !== "do-not-search"
         );
+        // on supprime le critère do-not-search à partir de trois caractères
         if (searchCriteriaIndex !== -1) {
           this.filterCriteria.splice(searchCriteriaIndex, 1);
         }
@@ -72,6 +79,7 @@ class SearchBar {
 
         return;
       }
+      // on retire le message d'erreur
       const prevEl = document.querySelector(".error");
       if (prevEl) {
         prevEl.remove();
@@ -92,17 +100,17 @@ class SearchBar {
       }
 
       this.filterCriteria.push({
-        value: sanitise(event.target.value),
+        value: sanitise(event.target.value), // on sécurise la saisie de données
         type: "search",
       });
       this.update(this.filterCriteria);
     });
   }
 
+  // création d'un tag en cliquant sur le bouton de recherche
   listenForClick() {
     this.searchBtn.addEventListener("click", () => {
-      this.addTag(this.input.value, "search-tag");
-      console.log(this.filterCriteria);
+      this.addTag(this.input.value, "search-tag"); // exécute l'ajout d'un tag en dessous des filtres
       const searchCriteriaIndex = this.filterCriteria.findIndex(
         (criteria) => criteria.type === "search"
       );
@@ -110,7 +118,7 @@ class SearchBar {
         this.filterCriteria.splice(searchCriteriaIndex, 1);
       }
       this.filterCriteria.push({
-        value: sanitise(this.input.value),
+        value: sanitise(this.input.value), // ici aussi on sécurise l'ajout de données
         type: "searched",
       });
       this.input.value = "";

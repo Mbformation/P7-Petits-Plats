@@ -3,6 +3,7 @@ import RecipesSection from "./pages/RecipesSection.js";
 import GetRecipes from "./utils/GetRecipes.js";
 import { norm } from "./utils/Normalise.js";
 
+// composant correspondant à l'ensemble de la page
 class Page {
   constructor() {
     this.recipes = new GetRecipes();
@@ -35,8 +36,10 @@ class Page {
     this.recipesSection.update(filteredRecipes);
   }
 
+  // méthode retourne les recettes correspondant aux critères de recherche
   filterRecipes(recipes, filterCriteria) {
     return recipes.filter((recipe) => {
+      // pour chaque type de critère on applique un filtrage particulier (search ou property)
       return filterCriteria.every((criteria) => {
         const { value, type } = criteria;
 
@@ -62,6 +65,7 @@ class Page {
     });
   }
 
+  // filtrage lorsque critère de la recherche principale
   searchFilter(recipe, value) {
     const { name, ingredients, description } = recipe;
     const lowerValue = value.toLowerCase();
@@ -74,6 +78,7 @@ class Page {
     );
   }
 
+  // filtrage lorsque critère des filtres avancés
   propertyFilter(item, property, value) {
     let ing,
       normalizedIngredient,
@@ -99,6 +104,7 @@ class Page {
     }
   }
 
+  // on ajoute le tag correspondant à un critère sélectionné en dessous des filtres avancés
   addTag(tagName, tagType) {
     this.recipesSection.addTag(tagName, tagType);
   }

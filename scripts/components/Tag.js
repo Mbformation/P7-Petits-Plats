@@ -1,3 +1,4 @@
+// composant tag correspondant à un critère de recherche non sélectionné
 class Tag {
   constructor(name) {
     this.name = name;

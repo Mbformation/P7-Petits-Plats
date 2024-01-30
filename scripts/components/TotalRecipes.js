@@ -1,3 +1,4 @@
+// composant comptabilisant le total de recettes correspondantes
 class TotalRecipes {
   constructor() {
     this.compEl = document.createElement("h3");

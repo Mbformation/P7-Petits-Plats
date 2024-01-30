@@ -1,3 +1,4 @@
+// fonction permettant de sécuriser la saisie de données d'un utilisateur
 export function sanitise(str) {
   return str
     .replace(/&/g, "&amp;")

@@ -1,3 +1,4 @@
+// composant tag correspondant à un critère de recherche choisi
 class SelectedTag {
   constructor(name, filterCriteria, updatePage, type) {
     this.name = name;
@@ -27,25 +28,25 @@ class SelectedTag {
     return this.compEl;
   }
 
+  // listener lorsqu'on retire le tag
   listenForRemove() {
     this.removeBtn.addEventListener("click", () => {
-      console.log(this.filterCriteria);
+      // retirer le critère correspondant au tag du tableau de critères
       this.filterCriteria.forEach((obj, index) => {
         if (
           obj.value.toLowerCase().replace(/\W/g, "-") ===
           this.title.textContent.toLowerCase().replace(/\W/g, "-")
         ) {
-          console.log(obj);
           this.filterCriteria.splice(index, 1);
         }
       });
-      console.log(this.filterCriteria);
-
+      // retirer le tag avant de chercher son jumeau
       this.compEl.remove();
+      // chercher s'il y a un tag jumeau
       const twinTag = document.querySelector(
         `.${this.type}.${this.name.toLowerCase().replace(/\W/g, "-")}`
       );
-
+      // si oui le retirer
       if (twinTag) {
         twinTag.remove();
       }

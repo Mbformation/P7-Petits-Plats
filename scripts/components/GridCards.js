@@ -1,11 +1,13 @@
 import RecipeCard from "./RecipeCard.js";
 
+// Ajoute les éléments pour la grille de recettes
 class GridCards {
   constructor() {
     this.compEl = document.createElement("div");
     this.compEl.classList.add("grid-cards");
   }
   render(recipes) {
+    // retirer les cards de l'ancienne sélection
     while (this.compEl.firstChild) {
       this.compEl.removeChild(this.compEl.firstChild);
     }

@@ -1,5 +1,6 @@
 import SearchBar from "../components/SearchBar.js";
 
+// composant correspondant à la section de recherche principale
 class SearchSection {
   constructor(filterCriteria, update, addTag) {
     this.filterCriteria = filterCriteria;
@@ -34,6 +35,7 @@ class SearchSection {
     return compEl;
   }
 
+  // message d'erreur à afficher lorsque l'input de la recherche principale n'est pas conforme
   showError() {
     const prevEl = document.querySelector(".error");
     if (prevEl) {

@@ -5,6 +5,7 @@ import TotalRecipes from "../components/TotalRecipes.js";
 import GridCards from "../components/GridCards.js";
 import SelectedTag from "../components/SelectedTag.js";
 
+// composant de la section des recettes de la page
 class RecipesSection {
   constructor(recipes, filterCriteria, updatePage) {
     this.filteredRecipes = recipes;
@@ -59,6 +60,7 @@ class RecipesSection {
     return this.compEl;
   }
 
+  // actualisation des composants de la section
   update(updatedRecipes) {
     this.filterIngredients.update(updatedRecipes);
     this.filterAppliance.update(updatedRecipes);

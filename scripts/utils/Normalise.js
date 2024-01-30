@@ -1,3 +1,4 @@
+// fonction de normalisation de données pour faciliter les comparaisons
 export function norm(str) {
   return str
     .toLowerCase()
