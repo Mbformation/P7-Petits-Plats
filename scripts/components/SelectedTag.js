@@ -8,8 +8,7 @@ class SelectedTag {
     this.compEl.classList.add(
       "selected-tag",
       `${this.name.toLowerCase().replace(/\W/g, "-")}`,
-      this.type,
-      this.name
+      this.type
     );
     this.title = document.createElement("span");
     this.title.textContent = `${this.name}`;
@@ -32,7 +31,10 @@ class SelectedTag {
     this.removeBtn.addEventListener("click", () => {
       console.log(this.filterCriteria);
       this.filterCriteria.forEach((obj, index) => {
-        if (obj.value.toLowerCase() === this.title.textContent.toLowerCase()) {
+        if (
+          obj.value.toLowerCase().replace(/\W/g, "-") ===
+          this.title.textContent.toLowerCase().replace(/\W/g, "-")
+        ) {
           console.log(obj);
           this.filterCriteria.splice(index, 1);
         }
@@ -40,7 +42,9 @@ class SelectedTag {
       console.log(this.filterCriteria);
 
       this.compEl.remove();
-      const twinTag = document.querySelector(`.${this.type}.${this.name}`);
+      const twinTag = document.querySelector(
+        `.${this.type}.${this.name.toLowerCase().replace(/\W/g, "-")}`
+      );
 
       if (twinTag) {
         twinTag.remove();
