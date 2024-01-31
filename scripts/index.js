@@ -34,6 +34,7 @@ class Page {
       this.filterCriteria
     );
     this.recipesSection.update(filteredRecipes);
+    return filteredRecipes.length;
   }
 
   // méthode retourne les recettes correspondant aux critères de recherche

@@ -36,14 +36,20 @@ class SearchSection {
   }
 
   // message d'erreur à afficher lorsque l'input de la recherche principale n'est pas conforme
-  showError() {
+  showError(type = "not-enough") {
     const prevEl = document.querySelector(".error");
     if (prevEl) {
       prevEl.remove();
     }
     const el = document.createElement("p");
     el.classList.add("error");
-    el.textContent = "Veuillez renseigner au moins 3 caracatères.";
+    if (type === "not-enough") {
+      el.textContent = "Veuillez renseigner au moins 3 caracatères.";
+    }
+    if (type === "nothing-found") {
+      const word = this.filterCriteria.find((e) => e.type === "search").value;
+      el.textContent = `Aucune recherche ne corresponds à "${word}".  `;
+    }
     this.container.appendChild(el);
   }
 }

@@ -103,7 +103,10 @@ class SearchBar {
         value: sanitise(event.target.value), // on sécurise la saisie de données
         type: "search",
       });
-      this.update(this.filterCriteria);
+      const total = this.update(this.filterCriteria);
+      if (total === 0) {
+        this.showError("nothing-found");
+      }
     });
   }
 
